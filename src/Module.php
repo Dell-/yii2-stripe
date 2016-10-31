@@ -5,17 +5,24 @@
  */
 namespace dell\stripe;
 
+use yii\base\BootstrapInterface;
+
 /**
  * Class Module
  */
-class Module extends \yii\base\Module
+class Module extends \yii\base\Module implements BootstrapInterface
 {
     const MODULE_ID = 'stripe';
 
     /**
      * @var string
      */
-    public $apiKey;
+    public $apiPublicKey;
+
+    /**
+     * @var string
+     */
+    public $apiSecretKey;
 
     /**
      * @inheritdoc
@@ -23,7 +30,15 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
-        // initialize the module with the configuration loaded from config.php
+        // initialize the module with the configuration loaded from main.php
         \Yii::configure($this, require(__DIR__ . '/config/main.php'));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function bootstrap($app)
+    {
+        \Yii::setAlias('@stripe', __DIR__);
     }
 }

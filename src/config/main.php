@@ -4,8 +4,6 @@
  * See LICENSE.txt for license details.
  */
 
-\Yii::setAlias('@stripe', dirname(__DIR__));
-
 return [
 
 ];

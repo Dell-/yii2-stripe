@@ -5,22 +5,13 @@
  */
 use yii\db\Migration;
 
-class m161031_125314_stripe_setup extends Migration
+class m161031_125313_stripe_additionals extends Migration
 {
     public function up()
     {
         $this->execute(
             '
-            CREATE TABLE IF NOT EXISTS `user` (
-              `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-              PRIMARY KEY (`id`))
-            ENGINE = InnoDB;
-            '
-        );
-
-        $this->execute(
-            '
-            CREATE TABLE IF NOT EXISTS `payment_order` (
+            CREATE TABLE IF NOT EXISTS `order` (
               `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
               `user_id` INT UNSIGNED NOT NULL,
               `amount` DECIMAL(9,2) NOT NULL,

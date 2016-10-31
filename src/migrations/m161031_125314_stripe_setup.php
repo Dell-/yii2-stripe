@@ -52,10 +52,10 @@ class m161031_125314_stripe_setup extends Migration
               `data` LONGTEXT NOT NULL,
               `created_at` INT UNSIGNED NOT NULL,
               PRIMARY KEY (`id`),
-              INDEX `cusomer_id` (`cusomer_id` ASC),
+              INDEX `customer_id` (`customer_id` ASC),
               INDEX `uid` (`uid` ASC),
               CONSTRAINT `fk_stripe_source_card_1`
-                FOREIGN KEY (`cusomer_id`)
+                FOREIGN KEY (`customer_id`)
                 REFERENCES `stripe_customer` (`id`)
                 ON DELETE CASCADE
                 ON UPDATE CASCADE)
@@ -65,7 +65,7 @@ class m161031_125314_stripe_setup extends Migration
 
         $this->execute(
             '
-            CREATE TABLE IF NOT EXISTS `stripe_address` (
+            CREATE TABLE IF NOT EXISTS `stripe_card_address` (
               `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
               `customer_id` INT UNSIGNED NOT NULL,
               `uid` VARCHAR(255) NOT NULL,
@@ -75,10 +75,12 @@ class m161031_125314_stripe_setup extends Migration
               `line2` VARCHAR(255) NULL,
               `state` VARCHAR(255) NULL,
               `zip` VARCHAR(255) NULL,
+              `created_at` INT UNSIGNED NOT NULL,
+              `updated_at` INT UNSIGNED NOT NULL,
               PRIMARY KEY (`id`),
               INDEX `uid` (`uid` ASC),
               INDEX `customer_id` (`customer_id` ASC),
-              CONSTRAINT `fk_stripe_address_1`
+              CONSTRAINT `fk_stripe_card_address_1`
                 FOREIGN KEY (`customer_id`)
                 REFERENCES `stripe_customer` (`id`)
                 ON DELETE CASCADE
@@ -103,7 +105,7 @@ class m161031_125314_stripe_setup extends Migration
               `created_at` INT UNSIGNED NOT NULL,
               PRIMARY KEY (`id`),
               INDEX `customer_id` (`customer_id` ASC),
-              INDEX `uid` (),
+              INDEX `uid` (`uid` ASC),
               INDEX `order_id` (`order_id` ASC),
               CONSTRAINT `fk_stripe_transaction_1`
                 FOREIGN KEY (`customer_id`)
@@ -112,7 +114,7 @@ class m161031_125314_stripe_setup extends Migration
                 ON UPDATE CASCADE,
               CONSTRAINT `fk_stripe_transaction_2`
                 FOREIGN KEY (`order_id`)
-                REFERENCES `payment_order` (`id`)
+                REFERENCES `order` (`id`)
                 ON DELETE CASCADE
                 ON UPDATE CASCADE)
             CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB;

@@ -30,6 +30,14 @@ class Customer extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public static function tableName()
+    {
+        return '{{%stripe_customer}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -47,7 +55,7 @@ class Customer extends ActiveRecord
             [['id', 'user_id', 'default_source_id'], 'integer'],
             [['uid', 'currency', 'description'], 'string'],
             ['email', 'email'],
-            ['mode', 'in', 'range' => [static::MODE_LIVE, static::MODE_TEST]],
+            ['mode', 'in', 'range' => [static::MODE_LIVE, static::MODE_TEST], 'strict' => true],
         ];
     }
 }

@@ -32,6 +32,14 @@ class Card extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public static function tableName()
+    {
+        return '{{%stripe_source_card}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -63,7 +71,7 @@ class Card extends ActiveRecord
             ],
             [['id', 'customer_id', 'exp_month', 'exp_year'], 'integer'],
             [['uid', 'brand', 'funding', 'country', 'last4', 'data'], 'string'],
-            ['mode', 'in', 'range' => [static::MODE_LIVE, static::MODE_TEST]],
+            ['mode', 'in', 'range' => [static::MODE_LIVE, static::MODE_TEST], 'strict' => true],
         ];
     }
 }

@@ -37,6 +37,14 @@ class Transaction extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public static function tableName()
+    {
+        return '{{%stripe_transaction}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -65,9 +73,9 @@ class Transaction extends ActiveRecord
             ],
             [['id', 'order_id', 'customer_id', 'amount'], 'integer'],
             [['uid', 'description', 'data'], 'string'],
-            ['mode', 'in', 'range' => [static::MODE_LIVE, static::MODE_TEST]],
-            ['type', 'in', 'range' => [static::TYPE_CHARGE]],
-            ['status', 'in', 'range' => [static::STATUS_SUCCEEDED, static::STATUS_PENDING, static::STATUS_FAILED]],
+            ['mode', 'in', 'range' => [static::MODE_LIVE, static::MODE_TEST], 'strict' => true],
+            ['type', 'in', 'range' => [static::TYPE_CHARGE], 'strict' => true],
+            ['status', 'in', 'range' => [static::STATUS_SUCCEEDED, static::STATUS_PENDING, static::STATUS_FAILED], 'strict' => true],
         ];
     }
 }

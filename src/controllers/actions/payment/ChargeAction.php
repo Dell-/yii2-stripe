@@ -14,6 +14,6 @@ class ChargeAction extends Action
 {
     public function run()
     {
-
+        print_r(\Yii::$app->getRequest()->post('token')); die;
     }
 }
