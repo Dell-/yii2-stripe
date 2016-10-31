@@ -1,5 +1,5 @@
 {
-    "name": "gbksoft/yii2-stripe",
+    "name": "dell/yii2-stripe",
     "description": "Yii 2 Stripe",
     "type": "project",
     "license": "MTI",
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "gbksoft\\stripe\\": "src"
+            "dell\\stripe\\": "src"
         }
     }
 }
