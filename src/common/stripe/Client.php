@@ -3,9 +3,9 @@
  * Copyright © 2016 GBKSOFT. Web and Mobile Software Development.
  * See LICENSE.txt for license details.
  */
-namespace common\stripe;
+namespace dell\stripe\common\stripe;
 
-use gbksoft\stripe\Module;
+use dell\stripe\Module;
 use Stripe\Stripe;
 
 /**

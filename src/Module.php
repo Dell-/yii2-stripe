@@ -3,7 +3,7 @@
  * Copyright © 2016 GBKSOFT. Web and Mobile Software Development.
  * See LICENSE.txt for license details.
  */
-namespace gbksoft\stripe;
+namespace dell\stripe;
 
 /**
  * Class Module

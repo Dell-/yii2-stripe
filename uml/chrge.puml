@@ -1,6 +1,7 @@
 @startuml
 Front -> Server: Charge request
 activate Server
+activate Front
 ref over Server
   {
       "token": "token_xxxx"
@@ -87,4 +88,5 @@ endrnote
 
 Server --> Front: Transaction result
 deactivate Server
+deactivate Front
 @enduml
