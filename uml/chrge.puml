@@ -1,0 +1,90 @@
+@startuml
+Front -> Server: Charge request
+activate Server
+ref over Server
+  {
+      "token": "token_xxxx"
+      "type": "card" // or other types (if implemented)
+  }
+end ref
+
+Server -> API: Create customer
+activate API
+
+ref over API
+  {
+      "api_token": "api_token_xxxx"
+      "source": "token_xxxx",
+      "description": "Operation description",
+      "email": "example@example.com"
+  }
+end ref
+
+API --> Server: Response
+deactivate API
+
+ref over Server
+    {
+      "id": "cus_9TcNqGgggVAUF3",
+      "object": "customer",
+      "account_balance": 0,
+      "created": 1477917832,
+      "currency": "usd",
+      "default_source": "card_19Af8BLOooR23oA9owF3x9iK",
+      "delinquent": false
+      ....
+end ref
+
+Server --> Server: Processing Customer
+rnote over Server
+  Search customer with strip UID
+    IF exists
+        1. check data
+        2. update data
+    ELSE
+        1. create customer and source records from api response data
+        2. link Stripe customer with current app user
+endrnote
+
+Server -> API: Charge
+activate API
+
+ref over API
+  {
+      "api_token": "api_token_xxxx"
+      "amount": xxxx,
+      "currency": xxx,
+      "source": "token_xxxx",
+      "description": "Operation description",
+      "metadata": {
+          "metadata" {"order_id": xxxxxx}
+      }
+  }
+end ref
+
+API --> Server: Response
+deactivate API
+
+Server --> Server: Processing transaction
+ref over Server
+  {
+    "id": "ch_19AgACLOooR23oA9MrUNW2TX",
+    "object": "charge",
+    "amount": 1100,
+    "amount_refunded": 0,
+    "application": null,
+    "application_fee": null,
+    "balance_transaction": "txn_19Ag9JLOooR23oA9ifxFEdez",
+    "captured": true
+    ....
+end ref
+
+Server --> Server: Processing Charge Transaction
+rnote over Server
+  # Validate data
+  # Send result
+endrnote
+
+Server --> Front: Transaction result
+deactivate Server
+@enduml

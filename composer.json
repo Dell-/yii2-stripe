@@ -1,0 +1,20 @@
+{
+    "name": "gbksoft/yii2-stripe",
+    "description": "Yii 2 Stripe",
+    "type": "project",
+    "license": "MTI",
+    "minimum-stability": "stable",
+    "require": {
+        "php": "~5.6.0|~7.0.0",
+        "yiisoft/yii2": "2.0.10",
+        "stripe/stripe-php": "4.1.1"
+    },
+    "require-dev": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "gbksoft\\stripe\\": "src"
+        }
+    }
+}
