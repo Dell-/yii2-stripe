@@ -69,13 +69,34 @@ class Transaction extends ActiveRecord
                     'amount',
                     'data',
                 ],
-                'require'
+                'required'
             ],
             [['id', 'order_id', 'customer_id', 'amount'], 'integer'],
             [['uid', 'description', 'data'], 'string'],
             ['mode', 'in', 'range' => [static::MODE_LIVE, static::MODE_TEST], 'strict' => true],
             ['type', 'in', 'range' => [static::TYPE_CHARGE], 'strict' => true],
-            ['status', 'in', 'range' => [static::STATUS_SUCCEEDED, static::STATUS_PENDING, static::STATUS_FAILED], 'strict' => true],
+            [
+                'status',
+                'in',
+                'range' => [
+                    static::STATUS_SUCCEEDED,
+                    static::STATUS_PENDING,
+                    static::STATUS_FAILED
+                ],
+                'strict' => true
+            ],
         ];
+    }
+
+    /**
+     * @param string $uid
+     * @return static
+     */
+    public static function findByUid($uid)
+    {
+        return static::find()
+            ->where(['uid' => $uid])
+            ->limit(1)
+            ->one();
     }
 }

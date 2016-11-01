@@ -16,4 +16,9 @@ interface ItemInterface
      * @return OrderInterface
      */
     public function getOrder();
+
+    /**
+     * @return float
+     */
+    public function getPrice();
 }

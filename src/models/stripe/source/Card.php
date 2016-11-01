@@ -17,11 +17,11 @@ use yii\db\ActiveRecord;
  * @property string $mode
  * @property string $brand
  * @property string $funding
- * @property string $country
  * @property int $exp_month
  * @property int $exp_year
  * @property string $last4
  * @property string $data
+ * @property bool $is_default
  * @property int $created_at
  */
 class Card extends ActiveRecord
@@ -62,16 +62,29 @@ class Card extends ActiveRecord
                     'customer_id',
                     'brand',
                     'funding',
-                    'country',
                     'exp_month',
                     'exp_year',
                     'last4',
                 ],
-                'require'
+                'required'
             ],
-            [['id', 'customer_id', 'exp_month', 'exp_year'], 'integer'],
-            [['uid', 'brand', 'funding', 'country', 'last4', 'data'], 'string'],
+            [['customer_id', 'exp_month', 'exp_year'], 'integer'],
+            ['is_default', 'boolean'],
+            [['uid', 'brand', 'funding', 'last4', 'data'], 'string'],
             ['mode', 'in', 'range' => [static::MODE_LIVE, static::MODE_TEST], 'strict' => true],
+            [['brand', 'funding',], 'filter', 'filter' => 'strtolower']
         ];
+    }
+
+    /**
+     * @param string $uid
+     * @return static
+     */
+    public static function findByUid($uid)
+    {
+        return static::find()
+            ->where(['uid' => $uid])
+            ->limit(1)
+            ->one();
     }
 }

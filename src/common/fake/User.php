@@ -14,13 +14,17 @@ use yii\base\Model;
  */
 class User extends Model implements UserInterface
 {
+    /**
+     * @var OrderInterface
+     */
+    private $order;
 
     /**
      * @return int
      */
     public function getId()
     {
-        // TODO: Implement getId() method.
+        return 1;
     }
 
     /**
@@ -28,6 +32,19 @@ class User extends Model implements UserInterface
      */
     public function getOrder()
     {
-        // TODO: Implement getOrder() method.
+        if (!$this->order) {
+            $this->order = new Order();
+            $this->order->setUser($this);
+        }
+
+        return $this->order;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return 'william.thomas@example.com';
     }
 }

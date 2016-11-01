@@ -21,4 +21,9 @@ interface UserInterface
      * @return OrderInterface
      */
     public function getOrder();
+
+    /**
+     * @return string
+     */
+    public function getEmail();
 }

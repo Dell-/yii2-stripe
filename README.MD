@@ -53,5 +53,9 @@ return [
 ```php
 <?php echo \dell\stripe\widget\stripe\Form::widget([
     'template' => 'button',
+    'params' => [
+        'name' => 'Test',
+        'description' => 'Test application'
+    ],
 ]); ?>
 ```

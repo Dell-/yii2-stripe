@@ -27,4 +27,14 @@ interface OrderInterface
      * @return ItemInterface[]
      */
     public function getItems();
+
+    /**
+     * @return string
+     */
+    public function getCurrency();
+
+    /**
+     * @return float
+     */
+    public function getTotalPrice();
 }
