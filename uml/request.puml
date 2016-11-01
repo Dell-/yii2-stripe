@@ -1,0 +1,25 @@
+@startuml
+actor User
+
+User -> Front: Click button and fill form
+activate User
+activate Front
+Front -> API: Send request, check data and getting token
+activate API
+API --> Front: Send response and execute callback function
+deactivate API
+Front -> Server: Send token and create transaction
+activate Server
+Server -> API: Create customer
+activate API
+API --> Server: Send operation result
+Server -> API: Create charge transaction
+API --> Server: Return transaction
+deactivate API
+Server -> Server: Validate transaction and update order data
+Server --> Front: Send result transaction operation
+deactivate Server
+Front --> User: Redirect to result page
+deactivate Front
+deactivate User
+@enduml
