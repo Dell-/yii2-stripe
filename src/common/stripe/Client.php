@@ -200,6 +200,7 @@ class Client extends Model
 
             if (!$stripeCustomer) {
                 $this->addError('toke', 'Wrong token.');
+                return false;
             }
 
             $customer = $this->customerBuilder->setMode($this->mode)
